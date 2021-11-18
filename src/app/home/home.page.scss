@@ -1,0 +1,77 @@
+ion-toolbar {
+  --background: white;
+}
+
+ion-title {
+  text-align: center;
+  color: black;
+  font-size: medium;
+}
+
+#background-image {
+  position: absolute;
+  display: block;
+  width: 100%;  
+}
+
+#filter {
+  position: absolute;
+  top: 140px;
+  display: inline-block;
+  background-color: rgba(240, 240, 240, 0.514);
+  height: 365px;
+  width: 100%;
+}
+
+#logo {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  top: 15px;
+  width: 65%;
+  border-radius: 15px;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+#email, #password {
+  position: relative;
+  display: block;
+  height: 30px;
+  width: 100%;
+  font-size: small;
+  color: black;
+  text-align: left;
+  background-color: white;
+}
+
+#email {
+  margin-top: 35px;
+}
+
+#password {
+  margin-top: 1px;
+}
+
+#button-enter, #button-create {
+  position: relative;
+  display: block;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  text-transform: capitalize;
+}
+
+#button-enter {
+  margin-top: 65px;
+}
+
+#button-create {
+  margin-top: 5px;
+}

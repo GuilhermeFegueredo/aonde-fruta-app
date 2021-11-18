@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Suas Descobertas</ion-title>
+    <ion-button color="danger" size="large" fill="clear" slot="end" (click)="closeModalDiscovery()"><ion-icon name="close-outline"></ion-icon></ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list> 
+    <!-- lista do ngFor para mostrar no modal-->
+    <ion-item class="itemDiscovery" *ngFor="let discovery of discoveries"  >
+      <ion-avatar slot="start">
+        <img id="imageAvatar" src= {{discovery.icon}} >
+      </ion-avatar>
+      <ion-label>
+        <h2> {{ discovery.title }} </h2>
+        <h3> {{ discovery.latitude }} {{ discovery.longitude }} </h3>
+      </ion-label>
+    </ion-item>
+  </ion-list> 
+</ion-content>

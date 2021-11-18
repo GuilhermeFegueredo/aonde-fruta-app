@@ -1,0 +1,7 @@
+{
+  "name": "AondeFruta",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

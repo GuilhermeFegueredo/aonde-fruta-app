@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> <!-- Título da página-->
+      Entrar
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <img id="background-image" alt="background" src="assets/frutasvertical.png"> <!-- background frutas-->
+  <div id="filter"></div> <!-- background fundo branco transparente -->
+  <img id="logo" alt="logo.png" src="assets/logo.png"> <!-- imagem logo-->
+
+  <div id="container">    
+    <div>
+      <ion-input id=email type="email" placeholder="Email"></ion-input> <!-- input label email-->
+      <ion-input id=password type="password" placeholder="Senha"></ion-input> <!-- input label password-->
+      <ion-button id="button-enter" routerLink="/map">Entrar</ion-button> <!-- botão entrar-->
+      <ion-button id="button-create" routerLink="/sign-up">Criar Perfil</ion-button> <!-- botão criar perfil-->
+    </div>
+  </div>
+</ion-content>

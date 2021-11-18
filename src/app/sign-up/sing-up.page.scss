@@ -1,0 +1,29 @@
+ion-title{
+    text-align: center; //Alinha o texto do título da página
+}
+
+.divPadding{
+    padding: 5%; //modifica o padding das divs
+}
+
+#userIcon{
+    height: 120px; //modifica as dimensões da imagem da foto
+    width: 120px;
+}
+
+.divUserIcon{ //class modifica as dimensões da div onde aparecerá a foto do usuário
+    
+    margin-top: 10px;
+    height: 120px;
+    width: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+}
+
+.center { // class trata da centralização do item
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

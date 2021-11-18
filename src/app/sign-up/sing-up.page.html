@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crie o seu perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="divUserIcon">    
+    <ion-icon id="userIcon" name="person-circle-outline" class="center"></ion-icon>
+  </div>
+
+  <div class="divPadding">    
+    <ion-button expand="block">Carregar foto</ion-button>
+  </div>
+
+  <div class="divPadding">
+
+    <ion-item>
+      <ion-label position="floating">Nome Completo</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nascimento</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="DD/MM/YYYY"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nome de usuário</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Repetir Senha</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+  </div>
+  
+
+  <div class="divPadding">
+    <ion-button expand="block">Terminei !</ion-button>
+    <ion-button expand="block" routerLink="/home">Voltar</ion-button>
+  </div>
+
+</ion-content>
