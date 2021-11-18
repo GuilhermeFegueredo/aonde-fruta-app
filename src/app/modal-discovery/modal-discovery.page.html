@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Suas Descobertas</ion-title>
+    <ion-title id="titleDiscovery" class="titleModal" size="small">Suas Descobertas</ion-title>
     <ion-button color="danger" size="large" fill="clear" slot="end" (click)="closeModalDiscovery()"><ion-icon name="close-outline"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <ion-list> 
+<ion-content id="contentDiscovery" fullscreen>
+  <ion-list id="listDiscovery"> 
     <!-- lista do ngFor -->
     <ion-item class="itemDiscovery" *ngFor="let discovery of discoveries"  >
       <ion-avatar slot="start">

@@ -60,21 +60,4 @@ export class ModalDiscoveryPage implements OnInit {
 
   // dar um get no usuário.informação_de_descorbertas para mostrar na tela
   // criar html do modal para receber as informações e montar a "tabela de descobertas"
-
-
-  // addListDiscoveries(discoveries) {
-  //   for (let i = 0; i < discoveries.length; i++) {
-  //     const discovery = discoveries[i];
-  //     let item = 
-  //     '<ion-item id="itemDiscoveries" class="itemDiscoveries"><ion-item>' +
-  //       '<ion-avatar slot="start">' +
-  //         '<img src="' + discovery.icon +'">' +
-  //       '<ion-avatar>' +
-  //     '<ion-label>' +
-  //       '<h2>'+ discovery.title +'</h2>' +
-  //       '<h3>' + "Latitude: " + discovery.latitude + " Longitude: " + discovery.longitude + '</h3>' +
-  //     '</ion-label>';
-  //     this.listDiscoveries.push(item);
-  //   }
-  // }
 }

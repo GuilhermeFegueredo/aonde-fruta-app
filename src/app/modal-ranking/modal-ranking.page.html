@@ -6,5 +6,16 @@
 </ion-header>
 
 <ion-content>
-  
+  <ion-list id="listRanking"> 
+    <!-- lista do ngFor -->
+    <ion-item class="itemRanking" *ngFor="let user of users"  >
+      <ion-avatar slot="start">
+        <img id="imageUser" src= {{user.photo}} >
+      </ion-avatar>
+      <ion-label>
+        <h2> {{ user.name }} </h2>
+        <h3> {{ user.trees }} </h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
