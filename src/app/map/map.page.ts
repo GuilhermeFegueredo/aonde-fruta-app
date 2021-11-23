@@ -136,9 +136,8 @@ export class MapPage {
       center: userLocation,
       zoom: 15,
       minZoom: 10,
-      desableDefaultUI: false,
-      //gestureHandling: 'cooperative',
-      // zoomControl: false, 
+      desableDefaultUI: false,      
+      zoomControl: false 
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.addMarkersToMap(this.markers);
