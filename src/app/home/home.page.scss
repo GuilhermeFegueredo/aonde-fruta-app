@@ -1,77 +1,124 @@
-ion-toolbar {
-  --background: white;
-}
-
-ion-title {
-  text-align: center;
-  color: black;
-  font-size: medium;
-}
-
-#background-image {
+.img-background {
   position: absolute;
-  display: block;
-  width: 100%;  
+  height: 100%;
+  width: 100%;
+  background-image: url('/assets/frutasvertical.png');
+  background-size: cover;
 }
 
-#filter {
+.effect-filter {
   position: absolute;
-  top: 140px;
-  display: inline-block;
+  top: 10%;
   background-color: rgba(240, 240, 240, 0.514);
-  height: 365px;
-  width: 100%;
+  height: 65vh;
+  width: 100vw;
 }
 
-#logo {
-  position: relative;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  top: 15px;
-  width: 65%;
-  border-radius: 15px;
+.img-logo {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  right: 0;
+  height: 30%;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 1em;  
+
+  background-image: url('/assets/logo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
   box-shadow:
-  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12);
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);  
 }
 
-#email, #password {
-  position: relative;
-  display: block;
-  height: 30px;
-  width: 100%;
-  font-size: small;
-  color: black;
-  text-align: left;
-  background-color: white;
+.ion-segment {
+  position: absolute;
+  top: 37%;
+  left: 0;
+  right: 0;
+  width: 90%;  
+  margin: 0 auto;
+  --background: #F28B50;
+  
+
+  .segment-buttom {
+    --color: #ffffff;
+    --indicator-color: #D93654;
+  }
 }
 
-#email {
-  margin-top: 35px;
+ion-slides {
+  top: 45%;
+  
+  .slide-inner {
+    width: 90%;
+    color: #FFFFFF;
+    background-color: #F28B50;
+    border-radius: 10px;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+  }
+
+  ion-item {
+    --background: #D93654;
+    --border-radius: 10px;
+
+    ion-input {
+        --color: #fff;
+    }
+  }
 }
 
-#password {
-  margin-top: 1px;
+.button {
+  --background: #63bfbf;
 }
 
-#button-enter, #button-create {
-  position: relative;
-  display: block;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  text-transform: capitalize;
-}
 
-#button-enter {
-  margin-top: 65px;
-}
 
-#button-create {
-  margin-top: 5px;
-}
+// #email, #password {
+//   position: relative;
+//   display: block;
+//   height: 30px;
+//   width: 100%;
+//   font-size: small;
+//   color: black;
+//   text-align: left;
+//   background-color: white;
+// }
+
+// #email {
+//   margin-top: 35px;
+// }
+
+// #password {
+//   margin-top: 1px;
+// }
+
+// #button-enter, #button-create {
+//   position: relative;
+//   display: block;
+//   width: 90%;
+//   margin-left: auto;
+//   margin-right: auto;
+//   text-transform: capitalize;
+// }
+
+// #button-enter {
+//   margin-top: 65px;
+// }
+
+// #button-create {
+//   margin-top: 5px;
+// }

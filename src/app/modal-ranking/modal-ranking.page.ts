@@ -35,7 +35,6 @@ export class ModalRankingPage implements OnInit {
     }
 ];
 
-
   ngOnInit() {
   }
 
