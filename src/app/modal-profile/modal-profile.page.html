@@ -1,10 +1,101 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Profile</ion-title>
+  <ion-toolbar class="toolbar_modal">
+    <ion-title class="title_modal">Perfil</ion-title>
     <ion-button color="danger" size="large" fill="clear" slot="end" (click)="closeModalProfile()"><ion-icon name="close-outline"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
+  <div class="main_content_div">
+
+    <div class="user_div">
+      <div class="first_div">
+        <ion-label class="username">Guilherme</ion-label>
+      </div>
+      <div class="user_back" [style.backgroundImage]="'url(assets/ranking/Guilherme.jpeg)'">
+        <!-- getUserPhoto() -->
+      </div>
+    </div>
+
+    <div class="content_div">
+      <div class="test_details">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <div class="flex_div">
+                <div class="round_div">
+                  <img src="..\..\assets\fruit_icons\apple_fruit_food_icon_48.png">
+                </div>
+                
+                <div class="details">
+                  <ion-label class="bold_lbl">100</ion-label>
+                  <ion-label class="small_lbl">Descobertas</ion-label>
+                </div>
+              </div>
+            </ion-col>
+
+            <ion-col size="6">
+              <div class="flex_div">
+                <div class="round_div">
+                  <img src="..\..\assets\ranking\Crown_40997.png">
+                </div>
+                
+                <div class="details">
+                  <ion-label class="bold_lbl">23º</ion-label>
+                  <ion-label class="small_lbl">no Raking</ion-label>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="list_div">
+        <ion-grid fixed>
+          <ion-row>            
+            <ion-col size="3">              
+                <div class="info_div">
+                  <ion-label class="small_lbl">Apelido:</ion-label>
+                </div>                
+            </ion-col>  
+            
+            <ion-col size="8">
+              <div class="info_details">
+                <ion-label class="bold_lbl">Guilherme</ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>            
+            <ion-col size="3">              
+                <div class="info_div">
+                  <ion-label class="small_lbl">Email:</ion-label>
+                </div>                
+            </ion-col>  
+            
+            <ion-col size="8">
+              <div class="info_details">
+                <ion-label class="bold_lbl">guilherme@gmail.com</ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>            
+            <ion-col size="3">              
+                <div class="info_div">
+                  <ion-label class="small_lbl">Senha:</ion-label>
+                </div>                
+            </ion-col>  
+            
+            <ion-col size="8">
+              <div class="info_details">
+                <ion-label class="bold_lbl">********</ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </div>
+    </div>    
+  </div>
 </ion-content>

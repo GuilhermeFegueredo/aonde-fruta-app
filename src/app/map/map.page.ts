@@ -15,10 +15,10 @@ declare const google: any;
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage {
-
   map: any;
   infoWindow = google.maps.InfoWindow;
-
+  directionsService = new google.maps.DirectionsService();
+    
   // eslint-disable-next-line @typescript-eslint/member-ordering
   @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
 
@@ -81,24 +81,45 @@ export class MapPage {
       this.addInfoWindowToMarker(mapMarker);
     }
   }
-
+ 
   addInfoWindowToMarker(marker) {
     let infoWindowContent = '<div id="content">' +
-      '<h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
-      '<p>Lat: ' + marker.latitude + '</p>' +
-      '<p>Long: ' + marker.longitude + '</p>' +
-      '<ion-button id="navigate"><ion-icon id="navigate" name="navigate-outline"></ion-icon></ion-button>'
-      '</div>';
+    '<h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
+    '<p>Lat: ' + marker.latitude + '</p>' +
+    '<p>Long: ' + marker.longitude + '</p>' +
+    '<ion-button id="navigate"><ion-icon id="navigate-icon" name="navigate-outline"></ion-icon></ion-button></div>'
+    '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent
     });
     this.infoWindows.push(infoWindow);
-
+    
     marker.addListener('click', () => {
       this.closeAllInfoWindow();
       infoWindow.open(this.map, marker);
-    });
+      // console.log(marker.latitude);
+      // console.log(marker.longitude);
 
+      google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
+        document.getElementById('navigate').addEventListener('click', () => {
+          this.navigate(marker.latitude, marker.longitude);
+        });
+      })
+    });
+  }
+  
+  async navigate(lat, lng){
+    const userPosition = await this.getUserPosition();
+    const origin = new google.maps.LatLng(userPosition.lat, userPosition.lng);
+    const destination = new google.maps.LatLng(lat, lng);
+    const directionsRequest = {
+      origin: origin,
+      destination: destination,
+      travelMode: 'WALKING'
+    }
+    this.directionsService.route(directionsRequest);
+    console.log(origin);
+    console.log(destination);
   }
 
   closeAllInfoWindow() {
@@ -116,14 +137,14 @@ export class MapPage {
       }
       return myPosition;
     }
-    catch (e){
+    catch (e) {
       console.log('Error getting location', e);
-    }    
+    }
   }
 
-  addUserMarker(lat: number, lng: number){
+  addUserMarker(lat: number, lng: number) {
     const userMarker = new google.maps.Marker({
-      position: {lat, lng},
+      position: { lat, lng },
       map: this.map,
       title: 'userName...',
       icon: '/assets/avatar/avatar_man_people_person_profile_user_icon_48.png'
@@ -136,12 +157,12 @@ export class MapPage {
       center: userLocation,
       zoom: 15,
       minZoom: 10,
-      desableDefaultUI: false,      
-      zoomControl: false 
+      desableDefaultUI: false,
+      zoomControl: false
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.addMarkersToMap(this.markers);
-    this.addUserMarker(userLocation.lat,userLocation.lng);
+    this.addUserMarker(userLocation.lat, userLocation.lng);
   }
 
   async showModalProfile() {

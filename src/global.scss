@@ -29,10 +29,19 @@
 
 ion-modal {
     &.modal-custom-css {
-        --background: rgb(81, 240, 240);
+        --background: rgb(255, 255, 255);
         --height: 96%;
         --width: 95%;
         --border-radius: 23px;        
+    }
+
+    ion-content {
+        --background: white;
+    }
+
+    .toolbar_modal {
+        --background: white;
+        --color: black;
     }
 }
 
@@ -40,6 +49,6 @@ ion-modal {
     color: black;  
 }
 
-.titleModal{
-    text-align: center;
+.title_modal {
+    text-align: left;
 }
