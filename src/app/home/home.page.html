@@ -7,65 +7,60 @@
     <div class="effect-filter"></div>
     <div class="img-logo"></div>
     <ion-segment class="ion-segment" (ionChange)="segmentChanged($event)" value="login">
-        <ion-segment-button class="segment-buttom" value="login">
-          <ion-label>Login</ion-label>
-        </ion-segment-button>
-        <ion-segment-button class="segment-buttom" value="register">
-          <ion-label>Cadastro</ion-label>
-        </ion-segment-button>
+      <ion-segment-button class="segment-buttom" value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button class="segment-buttom" value="register">
+        <ion-label>Cadastro</ion-label>
+      </ion-segment-button>
     </ion-segment>
-    
-    <ion-slides> <!-- pager="true" [options]="slideOpts" -->
+
+    <ion-slides>
       <ion-slide>
         <div class="slide-inner ion-padding">
           <span>Login</span>
 
-          <ion-item class="ion-margin-top" lines="nome">
-            <ion-input id=email type="email" placeholder="E-mail"></ion-input>
-          </ion-item>
-          
-          <ion-item class="ion-margin-top" lines="nome">
-            <ion-input id=password type="password" placeholder="Senha"></ion-input>
-          </ion-item>
-          
-          <ion-button class="ion-margin-top button" expand="block" routerLink="/map">Entrar</ion-button> 
-          <!-- <ion-button id="button-create" routerLink="/sign-up">Criar Perfil</ion-button>  -->
-        </div>        
-      </ion-slide>      
-        
+          <form (ngSubmit)="logar()" #loginForm="ngForm">
+            <ion-item class="ion-margin-top form-group" lines="nome">
+              <ion-input class="form-control" id="email" type="email" placeholder="E-mail" [(ngModel)]="email"
+                name="email" #campoEmail="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-top form-group" lines="nome">
+              <ion-input class="form-control" id="password" type="password" placeholder="Senha" [(ngModel)]="senha"
+                name="senha" #campoSenha="ngModel" required></ion-input>
+            </ion-item>
+            <ion-button type="submit" class="ion-margin-top button" expand="block" [disabled]="loginForm.invalid">Entrar
+            </ion-button>
+          </form>
+        </div>
+      </ion-slide>
+
       <ion-slide>
         <div class="slide-inner ion-padding">
-          <span>Cadastro</span>
 
-          <ion-item class="ion-margin-top" lines="nome">
-            <ion-input placeholder="Nome de usuário"></ion-input>
-          </ion-item>
-        
-          <ion-item class="ion-margin-top" lines="nome">
-            <ion-input placeholder="E-mail" type="email"></ion-input>
-          </ion-item>
-      
-          <ion-item class="ion-margin-top" lines="nome">
-            <ion-input placeholder="Senha" type="password"></ion-input>
-          </ion-item>
-      
-          <ion-item class="ion-margin-top" lines="nome">
-            <ion-input placeholder="Repetir senha" type="password"></ion-input>
-          </ion-item>
+          <form class="form mt-4" (submit)="cadastrarUsuario()" [formGroup]="novoUsuarioForm" #cadastrarForm>
+            <div class="limpar-form">
+              <a (click)="limparFormulario()">Limpar</a>
+            </div>
 
-          <ion-button class="ion-margin-top button" expand="block" routerLink="/sign-up">Criar Perfil</ion-button> 
+            <ion-item class="ion-margin-top form-group" lines="none">
+              <ion-input placeholder="Seu nome" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-top form-group" lines="none">
+              <ion-input placeholder="Nome de usuário" formControlName="userName"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-top form-group" lines="none">
+              <ion-input placeholder="E-mail" type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-top form-group" lines="none">
+              <ion-input placeholder="Senha" type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <ion-button type="submit" class="ion-margin-top button" expand="block" [disabled]="cadastrarForm.invalid">Criar
+              Perfil</ion-button>
+          </form>
+
         </div>
       </ion-slide>
     </ion-slides>
-  
   </div>
-  
-  <!-- <img id="background-image" alt="background" src="assets/frutasvertical.png">
-  <div id="filter"></div> 
-  <img id="logo" alt="logo.png" src="assets/logo.png"> -->
-  
- 
 </ion-content>
-
-
-

@@ -18,7 +18,8 @@ const routes: Routes = [
   {
     path: 'map',
     loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
-  },  {
+  },
+  {
     path: 'modal-profile',
     loadChildren: () => import('./modal-profile/modal-profile.module').then( m => m.ModalProfilePageModule)
   },
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'modal-ranking',
     loadChildren: () => import('./modal-ranking/modal-ranking.module').then( m => m.ModalRankingPageModule)
+  },
+  {
+    path: 'modal-nova-descoberta',
+    loadChildren: () => import('./modal-descoberta/modal-descoberta.module').then( m => m.ModalDescobertaModule)
   },
 
 ];

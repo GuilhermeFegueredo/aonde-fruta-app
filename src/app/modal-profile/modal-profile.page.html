@@ -1,7 +1,12 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
 <ion-header>
   <ion-toolbar class="toolbar_modal">
     <ion-title class="title_modal">Perfil</ion-title>
-    <ion-button color="danger" size="large" fill="clear" slot="end" (click)="closeModalProfile()"><ion-icon name="close-outline"></ion-icon></ion-button>
+    <ion-button color="danger" size="large" fill="clear" slot="end" (click)="closeModalProfile()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -10,10 +15,7 @@
 
     <div class="user_div">
       <div class="first_div">
-        <ion-label class="username">Guilherme</ion-label>
-      </div>
-      <div class="user_back" [style.backgroundImage]="'url(assets/ranking/Guilherme.jpeg)'">
-        <!-- getUserPhoto() -->
+        <ion-label class="username">{{ usuario.name }}</ion-label>
       </div>
     </div>
 
@@ -21,28 +23,14 @@
       <div class="test_details">
         <ion-grid fixed>
           <ion-row>
-            <ion-col size="6">
+            <ion-col size="12">
               <div class="flex_div">
                 <div class="round_div">
-                  <img src="..\..\assets\fruit_icons\apple_fruit_food_icon_48.png">
+                  <img src="..\..\assets\fruit_icons\arvore-generica.png">
                 </div>
-                
                 <div class="details">
-                  <ion-label class="bold_lbl">100</ion-label>
-                  <ion-label class="small_lbl">Descobertas</ion-label>
-                </div>
-              </div>
-            </ion-col>
-
-            <ion-col size="6">
-              <div class="flex_div">
-                <div class="round_div">
-                  <img src="..\..\assets\ranking\Crown_40997.png">
-                </div>
-                
-                <div class="details">
-                  <ion-label class="bold_lbl">23º</ion-label>
-                  <ion-label class="small_lbl">no Raking</ion-label>
+                  <ion-label class="bold_lbl">{{ (arvoresUsuario$ | async)?.length }}</ion-label>
+                  <ion-label class="small_lbl">Suas descobertas</ion-label>
                 </div>
               </div>
             </ion-col>
@@ -51,51 +39,15 @@
       </div>
 
       <div class="list_div">
-        <ion-grid fixed>
-          <ion-row>            
-            <ion-col size="3">              
-                <div class="info_div">
-                  <ion-label class="small_lbl">Apelido:</ion-label>
-                </div>                
-            </ion-col>  
-            
-            <ion-col size="8">
-              <div class="info_details">
-                <ion-label class="bold_lbl">Guilherme</ion-label>
-              </div>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>            
-            <ion-col size="3">              
-                <div class="info_div">
-                  <ion-label class="small_lbl">Email:</ion-label>
-                </div>                
-            </ion-col>  
-            
-            <ion-col size="8">
-              <div class="info_details">
-                <ion-label class="bold_lbl">guilherme@gmail.com</ion-label>
-              </div>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>            
-            <ion-col size="3">              
-                <div class="info_div">
-                  <ion-label class="small_lbl">Senha:</ion-label>
-                </div>                
-            </ion-col>  
-            
-            <ion-col size="8">
-              <div class="info_details">
-                <ion-label class="bold_lbl">********</ion-label>
-              </div>
-            </ion-col>
-          </ion-row>
-
-        </ion-grid>
+        <small>Nome de usuário</small>
+        <span><strong>{{ usuario.userName }}</strong></span>
+        <small>E-mail</small>
+        <span><strong>{{ usuario.email }}</strong></span>
       </div>
-    </div>    
+
+      <div>
+        <a class="sair-perfil" (click)="voltarLogin()">Sair</a>
+      </div>
+    </div>
   </div>
 </ion-content>

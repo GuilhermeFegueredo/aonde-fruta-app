@@ -1,21 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IonicModule } from '@ionic/angular';
 
-import { MapPageRoutingModule } from './map-routing.module';
-import { MapPage } from './map.page';
+import { ModalDescobertaRoutingModule } from './modal-descoberta-routing.module';
+import { ModalDescobertaComponent } from './modal-descoberta.component';
 
 @NgModule({
+  declarations: [ModalDescobertaComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapPageRoutingModule,
+    ModalDescobertaRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [Geolocation],
-  declarations: [MapPage],
 })
-export class MapPageModule {}
+export class ModalDescobertaModule {}

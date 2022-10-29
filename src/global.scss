@@ -25,6 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "~leaflet/dist/leaflet.css";
+
 
 
 ion-modal {
@@ -32,7 +34,7 @@ ion-modal {
         --background: rgb(255, 255, 255);
         --height: 96%;
         --width: 95%;
-        --border-radius: 23px;        
+        --border-radius: 23px;
     }
 
     ion-content {
@@ -46,7 +48,7 @@ ion-modal {
 }
 
 .firstHeading, #content p {
-    color: black;  
+    color: black;
 }
 
 .title_modal {
