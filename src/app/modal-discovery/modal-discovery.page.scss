@@ -9,3 +9,51 @@
 #imageAvatar {
     background-color: white;
 }
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  background: linear-gradient(to right, #F28B50, #D93654);
+  height: 30px;
+  align-items: center;
+}
+
+.sem-descobertas {
+
+}
+
+.item-arvore {
+  display: flex;
+  align-items: end;
+  flex-direction: row;
+  width: 100%;
+
+  .informacoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .label {
+      align-self: end;
+    }
+
+    .edit-delete {
+      font-size: 25px;
+
+      .edit {
+        margin-right: 10px;
+      }
+
+      .delete {
+        color: red
+      }
+    }
+  }
+
+  .icone{
+    margin-right: 10px;
+  }
+}

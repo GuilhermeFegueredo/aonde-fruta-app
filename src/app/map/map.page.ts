@@ -1,154 +1,186 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController } from '@ionic/angular';
+import { Icon, LatLng, Map, marker, Popup, popup, tileLayer } from 'leaflet';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+
+import { ModalDescobertaComponent } from '../modal-descoberta/modal-descoberta.component';
 import { ModalDiscoveryPage } from '../modal-discovery/modal-discovery.page';
 import { ModalProfilePage } from '../modal-profile/modal-profile.page';
 import { ModalRankingPage } from '../modal-ranking/modal-ranking.page';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { IonicNativePlugin } from '@ionic-native/core';
-
-declare const google: any;
+import { Arvore } from '../model/arvore';
+import { Usuario } from '../model/usuario';
+import { NovaArvore } from './../model/arvore';
+import { MapService } from './map.service';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage {
-
-  map: any;
-  infoWindow = google.maps.InfoWindow;
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
-
-  infoWindows: any = [];
-  markers: any = [
-    {
-      title: 'Manga',
-      latitude: '-23.323855',
-      longitude: '-51.124953',
-      icon: '/assets/fruit_icons/mango_fruit_food_icon_148898_48.png'
-    },
-    {
-      title: 'Limão',
-      latitude: '-23.323624',
-      longitude: '-51.123855',
-      icon: '/assets/fruit_icons/lemon_fruit_food_icon_48.png'
-    },
-    {
-      title: 'Laranja',
-      latitude: '-23.324028',
-      longitude: '-51.122413',
-      icon: '/assets/fruit_icons/orange_fruit_food_icon_48.png'
-    },
-    {
-      title: 'Banana',
-      latitude: '-23.325791',
-      longitude: '-51.121465',
-      icon: '/assets/fruit_icons/banana_fruit_food_icon_48.png'
-    },
-    {
-      title: 'Abacate',
-      latitude: '-23.325013',
-      longitude: '-51.118927',
-      icon: '/assets/fruit_icons/Avocado_icon-icons.com_68792_48.png'
-    }
-  ];
+export class MapPage implements OnInit {
+  usuario: Usuario;
+  arvores$: Observable<Arvore[]>;
+  map: Map;
+  userIcon: any;
+  treeIcon: any;
+  treePopup = new Popup();
 
   constructor(
     private modalCtrl: ModalController,
-    private geolocation: Geolocation
-  ) { }
+    private geolocation: Geolocation,
+    private router: Router,
+    private service: MapService
+  ) {
+    this.userIcon = new Icon({
+      iconUrl: 'https://img.icons8.com/dusk/80/000000/region-code.png',
+      iconSize: [40, 45],
+      iconAnchor: [20, 44],
+      popupAnchor: [0, -45],
+    });
+    this.treeIcon = new Icon({
+      iconUrl: 'https://img.icons8.com/office/80/000000/deciduous-tree.png',
+      iconSize: [40, 45],
+      iconAnchor: [20, 44],
+      popupAnchor: [0, -45],
+    });
+  }
+
+  ngOnInit(): void {
+    this.usuario = this.router.getCurrentNavigation().extras.state.usuario;
+  }
 
   ionViewDidEnter() {
-    this.showMap();
+    this.leafletMap();
   }
 
-  addMarkersToMap(markers) {
-    for (let i = 0; i < markers.length; i++) {
-      const marker = markers[i];
-      let positionMkr = new google.maps.LatLng(marker.latitude, marker.longitude);
-      let mapMarker = new google.maps.Marker({
-        position: positionMkr,
-        map: this.map,
-        title: marker.title,
-        latitude: marker.latitude,
-        longitude: marker.longitude,
-        icon: marker.icon,
-        animation: google.maps.Animation.DROP
-      });
-      this.addInfoWindowToMarker(mapMarker);
-    }
-  }
+  async leafletMap() {
+    const gpsUser = await this.getUserPosition();
+    this.map = new Map('map').setView([gpsUser.lat, gpsUser.lng], 17);
 
-  addInfoWindowToMarker(marker) {
-    let infoWindowContent = '<div id="content">' +
-      '<h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
-      '<p>Lat: ' + marker.latitude + '</p>' +
-      '<p>Long: ' + marker.longitude + '</p>' +
-      '<ion-button id="navigate"><ion-icon id="navigate" name="navigate-outline"></ion-icon></ion-button>'
-      '</div>';
-    let infoWindow = new google.maps.InfoWindow({
-      content: infoWindowContent
-    });
-    this.infoWindows.push(infoWindow);
+    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      minZoom: 14,
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(this.map);
 
-    marker.addListener('click', () => {
-      this.closeAllInfoWindow();
-      infoWindow.open(this.map, marker);
+    this.map.on('contextmenu', (e: { latlng: LatLng }) => {
+      this.showModalDescoberta(e.latlng);
     });
 
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 0);
+
+    marker([gpsUser.lat, gpsUser.lng], { icon: this.userIcon })
+      .addTo(this.map)
+      .bindPopup(
+        `
+      <div style="
+      display: flex;
+      flex-direction: column;
+      align-items: center
+      ">
+        <ion-icon size="large" style="color: cadetblue;" name="person"></ion-icon>
+        <strong>${this.usuario.userName}</strong>
+      </div>
+      `,
+        {
+          closeButton: false,
+        }
+      )
+      .openPopup();
+
+    this.carregaArvores();
+
+    // antPath(
+    //   [
+    //     [28.6448, 77.216721],
+    //     [34.1526, 77.5771],
+    //   ],
+    //   { color: '#FF0000', weight: 5, opacity: 0.6 }
+    // ).addTo(this.map);
   }
 
-  closeAllInfoWindow() {
-    for (const window of this.infoWindows) {
-      window.close();
-    }
+  setArvoresOnMap() {
+    this.arvores$.pipe(first()).subscribe(
+      (arvores) => {
+        arvores.map((arvore) => {
+          marker([arvore.latitude, arvore.longitude], {
+            icon: this.treeIcon,
+          })
+            .addTo(this.map)
+            .bindPopup(this.popupArvore(arvore), {
+              closeButton: false,
+            });
+        });
+      },
+      (error) => {
+        alert('Erro ao carregar os marcadores das árvores.');
+        console.log('Error ao carregar árvores: ', error);
+      }
+    );
+  }
+
+  podeApagarArvore(arvore: Arvore): boolean {
+    return this.usuario.id === arvore.idUsuario ? true : false;
   }
 
   async getUserPosition() {
     try {
-      const position = await this.geolocation.getCurrentPosition()
+      const position = await this.geolocation.getCurrentPosition();
       const myPosition = {
         lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
+        lng: position.coords.longitude,
+      };
       return myPosition;
+    } catch (e) {
+      alert('Erro ao pegar a sua localização');
     }
-    catch (e){
-      console.log('Error getting location', e);
-    }    
   }
 
-  addUserMarker(lat: number, lng: number){
-    const userMarker = new google.maps.Marker({
-      position: {lat, lng},
-      map: this.map,
-      title: 'userName...',
-      icon: '/assets/avatar/avatar_man_people_person_profile_user_icon_48.png'
+  carregaArvores() {
+    this.arvores$ = this.service.carregaArvores().pipe(first());
+    this.setArvoresOnMap();
+  }
+
+  criaArvoreMarker(arvoreCriada: NovaArvore) {
+    marker([arvoreCriada.latitude, arvoreCriada.longitude], {
+      icon: this.treeIcon,
+    })
+      .addTo(this.map)
+      .bindPopup(this.popupArvore(arvoreCriada), {
+        closeButton: false,
+        zoomAnimation: false,
+      });
+  }
+
+  async showModalDescoberta(latlng: LatLng) {
+    const modal = await this.modalCtrl.create({
+      component: ModalDescobertaComponent,
+      cssClass: 'modal-custom-css',
+      componentProps: {
+        usuario: this.usuario,
+        coordenadas: latlng,
+      },
     });
-  }
-
-  async showMap() {
-    const userLocation = await this.getUserPosition();
-    const options = {
-      center: userLocation,
-      zoom: 15,
-      minZoom: 10,
-      desableDefaultUI: false,
-      //gestureHandling: 'cooperative',
-      // zoomControl: false, 
-    };
-    this.map = new google.maps.Map(this.mapRef.nativeElement, options);
-    this.addMarkersToMap(this.markers);
-    this.addUserMarker(userLocation.lat,userLocation.lng);
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      this.criaArvoreMarker(data);
+    }
   }
 
   async showModalProfile() {
     const modal = await this.modalCtrl.create({
       component: ModalProfilePage,
-      cssClass: 'modal-custom-css'
+      cssClass: 'modal-custom-css',
+      componentProps: {
+        usuario: this.usuario,
+      },
     });
     return await modal.present();
   }
@@ -156,7 +188,10 @@ export class MapPage {
   async showModalDiscovery() {
     const modal = await this.modalCtrl.create({
       component: ModalDiscoveryPage,
-      cssClass: 'modal-custom-css'
+      cssClass: 'modal-custom-css',
+      componentProps: {
+        usuario: this.usuario,
+      },
     });
     return await modal.present();
   }
@@ -164,10 +199,46 @@ export class MapPage {
   async showModalRanking() {
     const modal = await this.modalCtrl.create({
       component: ModalRankingPage,
-      cssClass: 'modal-custom-css'
+      cssClass: 'modal-custom-css',
     });
     return await modal.present();
   }
 
-  // reduzir o código de showModalEspecifico para showModal
+  irAteGps() {
+    console.log('ir até acionado');
+  }
+
+  popupArvore(arvoreCriada: NovaArvore): Popup {
+    return popup().setContent(
+      `
+      <div class="popup-description"
+      style=" display: flex;
+      flex-direction: column;
+      align-items: center;">
+        <div id="nome-gps" style=" display: flex;
+        flex-direction: row;
+        align-items: center;">
+          <h2><strong>${arvoreCriada.name}</strong></h2>
+          <div id="gps" style="
+          color: blueviolet;
+          font-size: 30px;
+          align-self: end;
+          margin-left: 10px;
+          ">
+          </div>
+        </div>
+        <span>Descoberto por: <strong>${arvoreCriada.userCreator}</strong></span>
+          <div *ngIf="arvore.description" style="margin-top: 8px;">
+            <span>
+              ${arvoreCriada.description}
+            </span>
+          </div>
+      </div>
+  `
+    );
+  }
 }
+
+// <ion-icon name="navigate-circle-sharp">
+
+// Usar marker cluster = https://github.com/Leaflet/Leaflet.markercluster

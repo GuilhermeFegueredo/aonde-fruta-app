@@ -1,0 +1,33 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<ion-header>
+  <ion-toolbar class="toolbar_modal">
+    <ion-title>
+      <div class="ion-text-wrap">
+        <span>Nova Descoberta</span>
+      </div>
+    </ion-title>
+    <ion-button color="danger" size="large" fill="clear" slot="end" (click)="cancel()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="form mt-4" (submit)="cadastrarArvore()" [formGroup]="novaDescobertaForm" #descoberta="ngForm">
+    <ion-item class="ion-margin-top form-group" lines="nome">
+      <ion-input class="form-control" id="name" type="text" placeholder="Nome da espécie" formControlName="nome"
+        required></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-top form-group" lines="nome">
+      <ion-input class="form-control" id="description" placeholder="Alguma observação?" formControlName="description">
+      </ion-input>
+    </ion-item>
+    <ion-button type="submit" color="success" class="ion-margin-top button" expand="block"
+      [disabled]="!descoberta.form.valid">Salvar
+    </ion-button>
+    <ion-button class="ion-margin-top button" (click)="cancel()" fill="clear" expand="block">Cancelar
+    </ion-button>
+  </form>
+</ion-content>
