@@ -8,7 +8,7 @@
     .user_div {
         padding: 20px;
         width: 100%;
-        height: 260px;
+        height: 160px;
         background: linear-gradient(to right, #F28B50, #D93654);
         display: flex;
         justify-content: space-between;
@@ -16,8 +16,7 @@
     }
 
     .first_div {
-        padding-top: 70px;
-        
+
         .username {
             font-size: 18px;
             color: white;
@@ -41,6 +40,15 @@
         margin-top: -90px;
         padding: 20px;
         padding-top: 30px;
+
+        .sair-perfil {
+          display: flex;
+          justify-content: center;
+          margin-top: 5px;
+          color: #D93654;
+          font-size: 10px;
+          cursor: pointer;
+        }
 
         .test_details {
             width: 100%;
@@ -75,8 +83,8 @@
                     }
 
                     .details {
-                        padding-left: 5px;
-                        color: black;
+                        margin-left: 10px;
+                        // color: black;
 
                         .bold_lbl {
                             font-weight: 600;
@@ -94,11 +102,17 @@
 
         .list_div {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            align-content: stretch;
             border-radius: 5px;
             box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
             padding: 15px;
+
+            small {
+              margin: 8px 0 8px;
+            }
 
             ion-grid {
                 padding: 0;
@@ -110,7 +124,7 @@
 
                     ion-col {
                         padding: 10px;
-                    
+
                         .info_div {
                             position: relative;
                             color: black;

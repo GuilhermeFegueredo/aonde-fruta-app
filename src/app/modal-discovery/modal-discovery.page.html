@@ -1,20 +1,30 @@
 <ion-header>
   <ion-toolbar class="toolbar_modal">
     <ion-title id="titleDiscovery" class="title_modal" size="default">Suas Descobertas</ion-title>
-    <ion-button color="danger" size="small" fill="clear" slot="end" (click)="closeModalDiscovery()"><ion-icon name="close-outline"></ion-icon></ion-button>
+    <ion-button color="danger" size="small" fill="clear" slot="end" (click)="closeModalDiscovery()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content id="contentDiscovery" fullscreen>
-  <ion-list id="listDiscovery"> 
-    <!-- lista do ngFor -->
-    <ion-item class="itemDiscovery" *ngFor="let tree of trees"  >
-      <ion-avatar slot="start">        
-      </ion-avatar>
-      <ion-label>
-        <h2> {{ tree.name }} </h2>
-        <h3> {{ tree.latitude }} {{ tree.longitude }} </h3>
-      </ion-label>
+  <div class="total">
+    <span>Total de descobertas = {{ (arvores$ | async)?.length }}</span>
+  </div>
+  <ion-list id="listDiscovery" *ngFor="let arvore of arvores$ | async">
+    <ion-item>
+      <div class="item-arvore">
+        <img class="icone" src="https://img.icons8.com/offices/30/000000/deciduous-tree.png" />
+        <div class="informacoes">
+          <div class="label">
+            <ion-label>{{ arvore.name }}</ion-label>
+          </div>
+          <div class="edit-delete">
+            <ion-icon (click)="editarArvore(arvore.id)" class="edit" name="create-outline"></ion-icon>
+            <ion-icon (click)="deleteArvore(arvore.id)" class="delete" name="trash-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
     </ion-item>
-  </ion-list> 
+  </ion-list>
 </ion-content>
