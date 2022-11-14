@@ -11,7 +11,7 @@ export class UsuarioService {
 
   autenticaUsuario(email: string, senha: string) {
     return this.httpClient.get<Usuario>(
-      `http://localhost:8080/user/email/${email}/${senha}`
+      `https://aondefruta-core.herokuapp.com/user/email/${email}/${senha}`
 
       // `http://ec2-user@ec2-54-232-150-145.sa-east-1.compute.amazonaws.com:8080/user/email/${email}/${senha}`
     );
@@ -19,7 +19,7 @@ export class UsuarioService {
 
   salvaUsuario(novoUsuario: NovoUsuario) {
     return this.httpClient.post<Usuario>(
-      `http://localhost:8080/user/`,
+      `https://aondefruta-core.herokuapp.com/user/`,
 
       // `http://ec2-user@ec2-54-232-150-145.sa-east-1.compute.amazonaws.com:8080/user`,
       novoUsuario

@@ -10,7 +10,7 @@ export class ModalProfileService {
 
   procuraArvoresUsuario(userId: number) {
     return this.httpClient.get<Arvore[]>(
-      `http://localhost:8080/tree/lista-arvores/${userId}`
+      `https://aondefruta-core.herokuapp.com/tree/lista-arvores/${userId}`
     );
   }
 }
