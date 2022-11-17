@@ -1,5 +1,87 @@
+:root{
+    --pos-inicial: 0;
+}
+
 #map{
     width: 100%;
     height: 100%;
     display: block;
 }
+
+#searchbar {
+    position: relative;
+    --border-radius: 25px;
+    // --background: white;
+    width: 95vw;
+    top: 1rem;
+    margin: 0 auto;
+    z-index: 2;
+    --color: #4aa84a;
+    --background-color: #f59963;
+}
+
+#list-search {
+    position: relative;
+    bottom: 1rem;
+    width: 90vw;
+    height: 0;
+    margin: 0 auto;
+    border-radius: 8px 8px 25px 25px;
+    z-index: 1;
+    transition: .2s linear;
+    transform: translateY(0);
+    color: #f59963;
+}
+
+#searchbar:focus-within ~ #list-search {
+    transform: translateY(5%);
+    height: 30vh;
+    
+}
+
+#spinner {
+    position: absolute;
+    --color: #f59963;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width: 13vw;
+    height: 13vh; 
+    display: none;
+}
+
+#button-navigate {
+    left: 1.5%;
+}
+
+#button-cancel {
+    left: 1.5%;
+}
+
+#button-position {
+    left: 19vw;
+}
+
+#button-navigate, #button-cancel, #button-position, ion-fab {
+    position: absolute;
+    top: 91vh;
+    height: 3rem;
+    width: 3rem;
+}
+
+ion-fab-button, #button-navigate, #button-cancel, #button-position {
+    --background: #f59963;
+    --color: #4aa84a;
+    --box-shadow: none;
+    --border-color: #8d4013;
+    --border-width: 0.12rem;
+    --border-style: solid;
+}
+
+.leaflet-marker-pane > * {
+    -webkit-transition: transform .3s linear;
+    -moz-transition: transform .3s linear;
+    -o-transition: transform .3s linear;
+    -ms-transition: transform .3s linear;
+    transition: transform .3s linear;
+  }

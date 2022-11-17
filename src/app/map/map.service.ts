@@ -9,12 +9,12 @@ export class MapService {
   constructor(private httpClient: HttpClient) {}
 
   carregaArvores() {
-    return this.httpClient.get<Arvore[]>('http://localhost:8080/tree');
+    return this.httpClient.get<Arvore[]>('https://aondefruta-core.herokuapp.com/tree');
   }
 
   salvaArvore(novaArvore: NovaArvore) {
     return this.httpClient.post<NovaArvore>(
-      'http://localhost:8080/tree',
+      'https://aondefruta-core.herokuapp.com/tree',
       novaArvore
     );
   }

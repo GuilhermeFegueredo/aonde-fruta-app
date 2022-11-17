@@ -1,7 +1,8 @@
 {
   "name": "AondeFruta",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

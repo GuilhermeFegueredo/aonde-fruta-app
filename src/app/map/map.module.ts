@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { MapPageRoutingModule } from './map-routing.module';
 import { MapPage } from './map.page';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { MapPage } from './map.page';
     IonicModule,
     MapPageRoutingModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule
   ],
   providers: [Geolocation],
   declarations: [MapPage],
