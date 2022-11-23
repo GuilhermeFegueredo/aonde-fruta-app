@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import * as Leaflet from 'leaflet';
 
 import { MapService } from '../map/map.service';
@@ -19,6 +19,7 @@ export class ModalDescobertaComponent implements OnInit {
   novaDescobertaForm: FormGroup;
 
   constructor(
+    private toastController: ToastController,
     private formBuilder: FormBuilder,
     private service: MapService,
     private modalCtrl: ModalController
@@ -27,7 +28,7 @@ export class ModalDescobertaComponent implements OnInit {
   ngOnInit() {
     this.novaDescobertaForm = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(2)]],
-      description: ['', [Validators.minLength(4)]]
+      description: ['', [Validators.minLength(4)]],
     });
   }
 
@@ -48,15 +49,25 @@ export class ModalDescobertaComponent implements OnInit {
 
   salvaArvore(newTree: NovaArvore) {
     this.service.salvaArvore(newTree).subscribe(
-      () => alert('Árvore cadastrada com sucesso!'),
+      () => this.presentToast('Árvore cadastrada com sucesso!'),
       (error) => {
-        alert('Desculpe. Tente novamente!');
+        this.presentToast('Desculpe. Tente novamente!');
         console.log(error);
       },
       () => {
         this.closeModalProfile(newTree);
       }
     );
+  }
+
+  async presentToast(texto: string) {
+    const toast = await this.toastController.create({
+      message: texto,
+      duration: 1500,
+      position: 'bottom',
+    });
+
+    await toast.present();
   }
 
   cancel() {

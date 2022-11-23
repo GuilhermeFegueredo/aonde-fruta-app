@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Arvore, NovaArvore } from '../model/arvore';
 
 @Injectable({
@@ -9,7 +10,9 @@ export class MapService {
   constructor(private httpClient: HttpClient) {}
 
   carregaArvores() {
-    return this.httpClient.get<Arvore[]>('https://aondefruta-core.herokuapp.com/tree');
+    return this.httpClient.get<Arvore[]>(
+      'https://aondefruta-core.herokuapp.com/tree'
+    );
   }
 
   salvaArvore(novaArvore: NovaArvore) {

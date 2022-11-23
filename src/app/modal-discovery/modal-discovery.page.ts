@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs/internal/Observable';
-import { take, first } from 'rxjs/operators';
+import { delay, first } from 'rxjs/operators';
 
 import { ModalProfileService } from '../modal-profile/modal-profile.service';
 import { Arvore } from '../model/arvore';
@@ -16,31 +16,54 @@ import { Usuario } from '../model/usuario';
 export class ModalDiscoveryPage implements OnInit {
   usuario: Usuario;
   arvores$: Observable<Arvore[]>;
+  apagou = false;
 
   constructor(
     private modalCtrl: ModalController,
+    private toastController: ToastController,
     private router: Router,
     private service: ModalProfileService
   ) {}
 
   ngOnInit() {
     this.buscaDescobertas(this.usuario.id);
-    this.arvores$.subscribe((t) => console.log('Descobertas: ', t));
   }
 
   buscaDescobertas(id: number) {
     this.arvores$ = this.service.procuraArvoresUsuario(id).pipe(first());
   }
 
-  deleteArvore(id: number) {
-    console.log('Deletei a: ', id);
+  apagarArvore(id: number) {
+    this.service.deletaArvore(id).subscribe({
+      next: () => null,
+      error: (erro) => console.log('Erro ao apagar árvore: ', erro),
+      complete: () => {
+        setTimeout(() => this.buscaDescobertas(this.usuario.id), 1500);
+        this.presentToast();
+        this.apagou = true;
+      },
+    });
   }
 
-  editarArvore(id: number) {
-    console.log('Editei a: ', id);
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Arvore apagada com sucesso!',
+      duration: 1500,
+      position: 'bottom',
+    });
+
+    await toast.present();
+  }
+
+  deletouArvore() {
+    return this.modalCtrl.dismiss(this.apagou, 'confirm');
   }
 
   async closeModalDiscovery() {
-    this.modalCtrl.dismiss();
+    if(this.apagou) {
+      this.deletouArvore();
+    } else {
+      this.modalCtrl.dismiss();
+    }
   }
 }

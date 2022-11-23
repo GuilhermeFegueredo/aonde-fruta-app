@@ -7,24 +7,38 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content id="contentDiscovery" fullscreen>
-  <div class="total">
-    <span>Total de descobertas = {{ (arvores$ | async)?.length }}</span>
-  </div>
-  <ion-list id="listDiscovery" *ngFor="let arvore of arvores$ | async">
-    <ion-item>
-      <div class="item-arvore">
-        <img class="icone" src="https://img.icons8.com/offices/30/000000/deciduous-tree.png" />
-        <div class="informacoes">
-          <div class="label">
-            <ion-label>{{ arvore.name }}</ion-label>
-          </div>
-          <div class="edit-delete">
-            <ion-icon (click)="editarArvore(arvore.id)" class="edit" name="create-outline"></ion-icon>
-            <ion-icon (click)="deleteArvore(arvore.id)" class="delete" name="trash-outline"></ion-icon>
+  <div class="descobertas" *ngIf="(arvores$ | async)?.length > 0; else carregandoArvores">
+    <div class="total">
+      <span>Total de descobertas = {{ (arvores$ | async)?.length }}</span>
+    </div>
+    <ion-list id="listDiscovery" *ngFor="let arvore of arvores$ | async">
+      <ion-item>
+        <div class="item-arvore">
+          <img class="icone" src="https://img.icons8.com/offices/30/000000/deciduous-tree.png" />
+          <div class="informacoes">
+            <div class="label">
+              <ion-label>{{ arvore.name }}</ion-label>
+            </div>
+            <div class="edit-delete">
+              <ion-icon (click)="apagarArvore(arvore.id)" class="delete" name="trash-outline"></ion-icon>
+            </div>
           </div>
         </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-template #carregandoArvores>
+    <div>
+      <div class="spinner-dicovery">
+        <ion-item>
+          <div class="carregando">
+            <ion-label>Carregando suas descobertas...</ion-label>
+            <ion-spinner style="margin-top: 10px;" color="tertiary" name="bubbles"></ion-spinner>
+          </div>
+        </ion-item>
       </div>
-    </ion-item>
-  </ion-list>
+    </div>
+  </ng-template>
 </ion-content>
