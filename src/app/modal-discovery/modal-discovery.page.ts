@@ -17,6 +17,7 @@ export class ModalDiscoveryPage implements OnInit {
   usuario: Usuario;
   arvores$: Observable<Arvore[]>;
   apagou = false;
+  idArvoreApagada: number;
 
   constructor(
     private modalCtrl: ModalController,
@@ -41,6 +42,7 @@ export class ModalDiscoveryPage implements OnInit {
         setTimeout(() => this.buscaDescobertas(this.usuario.id), 1500);
         this.presentToast();
         this.apagou = true;
+        this.idArvoreApagada = id;
       },
     });
   }
@@ -56,7 +58,7 @@ export class ModalDiscoveryPage implements OnInit {
   }
 
   deletouArvore() {
-    return this.modalCtrl.dismiss(this.apagou, 'confirm');
+    return this.modalCtrl.dismiss(this.idArvoreApagada, 'confirm');
   }
 
   async closeModalDiscovery() {

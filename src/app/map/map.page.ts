@@ -29,7 +29,6 @@ import { Arvore } from '../model/arvore';
 import { Usuario } from '../model/usuario';
 import { NovaArvore } from './../model/arvore';
 import { MapService } from './map.service';
-
 import 'leaflet-routing-machine';
 import { BinaryOperator, preserveWhitespacesDefault } from '@angular/compiler';
 import { element } from 'protractor';
@@ -115,40 +114,8 @@ export class MapPage implements OnInit {
     }, 0);
 
     this.setUserMarker(this.gpsUserCoord.lat, this.gpsUserCoord.lng);
-
-    // this.markerUser = marker([gpsUser.lat, gpsUser.lng], {
-    //   icon: this.userIcon,
-    // })
-    //   .addTo(this.map)
-    //   .bindPopup(
-    //     `
-    //   <div style="
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center
-    //   ">
-    //     <ion-icon size="large" style="color: cadetblue;" name="person"></ion-icon>
-    //     <strong>${this.usuario.userName}</strong>
-    //   </div>
-    //   `,
-    //     {
-    //       closeButton: false,
-    //       autoClose: true,
-    //     }
-    //   )
-    //   .openPopup();
-
     this.tracking();
     this.carregaArvores();
-    const layerMarkers = this.map.eachLayer((layer) =>
-      console.log(layer.getPane('markerPane'))
-    );
-    // this.layerMap = this.map.eachLayer(
-    //   (layer) =>
-    //     layer.getAttribution() ===
-    //     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    // );
-    // console.log('layerMarkers', layerMarkers);
   }
 
   setUserMarker(lat: number, long: number): void {
@@ -237,7 +204,7 @@ export class MapPage implements OnInit {
   // Método para criar a árvore e contorna o erro que não capturar a latitude e longitude
   setNewArvoreOnMap(arvoreCriada: NovaArvore): void {
     try {
-      this.setSearchTrees(arvoreCriada);
+      // this.setSearchTrees(arvoreCriada);
       marker([arvoreCriada.latitude, arvoreCriada.longitude], {
         icon: this.treeIcon,
       })
@@ -273,7 +240,6 @@ export class MapPage implements OnInit {
         watch: true,
       })
       .on('locationfound', (e) => {
-        console.log(e);
         if (e.latlng != this.markerUser.latlng) {
           this.markerUser.setLatLng(e.latlng);
           if (this.routing != false) {
@@ -304,26 +270,11 @@ export class MapPage implements OnInit {
       this.map.stopLocate();
       let gpsUser = await this.getUserPosition();
 
-      console.log(
-        '[externo] removeu a anterior ' + (this.routingControl != null)
-      );
-      console.log(
-        '[externo] Não existe outra rota ' + (this.routingControl == null)
-      );
-
       if (this.routing != false) {
-        console.log(
-          '[interno] removeu a anterior ' + (this.routingControl != null)
-        );
         this.removeRoutingControl();
       }
 
       if (this.routing == false) {
-        console.log(
-          '[interno] Não existe outra rota ' + (this.routingControl == null)
-        );
-        console.log('Marcador selecionado ' + this.markerSelected);
-
         markerNavigate = this.markerSelected;
 
         this.routingControl = await L.Routing.control({
@@ -367,10 +318,8 @@ export class MapPage implements OnInit {
       spinner.style.display = 'none';
       if (this.markerSelected == null) {
         alert('Selecione uma árvore');
-        console.log('Árvore não selecionada: ', error);
       } else {
         alert('Erro ao calcular a rota');
-        console.log('Error ao calcular a rota: ', error);
       }
     }
   }
@@ -469,14 +418,13 @@ export class MapPage implements OnInit {
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (role === 'confirm') {
-      // this.searchTrees.splice(0);
       this.map.eachLayer((layer) => {
         if (layer.getPane() === layer.getPane('markerPane')) {
           this.map.removeLayer(layer);
           this.setUserMarker(this.gpsUserCoord.lat, this.gpsUserCoord.lng);
-          this.carregarArvoresNoMapa();
         }
       });
+      this.carregarArvoresNoMapa();
     }
   }
 
@@ -486,10 +434,6 @@ export class MapPage implements OnInit {
       cssClass: 'modal-custom-css',
     });
     return await modal.present();
-  }
-
-  irAteGps() {
-    console.log('ir até acionado');
   }
 
   popupArvore(arvoreCriada: NovaArvore): Popup {
