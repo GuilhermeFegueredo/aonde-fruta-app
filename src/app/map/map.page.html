@@ -4,22 +4,30 @@
   </div>
 
   <ion-searchbar search-icon="leaf-outline" slot="fixed" id="searchbar" placeholder="Pesquise uma árvore aqui !"
-                 [(ngModel)]="searchTerm"
-                 showCancelButton="focus"
-                 animated>
+    [(ngModel)]="searchTerm" showCancelButton="focus" animated>
   </ion-searchbar>
-  
-  
+
+
   <ion-list lines="none" id="list-search" slot="fixed">
-    <ion-item id="item-list" *ngFor="let searchTree of searchTrees | filter:searchTerm; let i = index" (click)="itemView(searchTree)" >
-      <ion-label>
-        {{ searchTree.name }}
-      </ion-label>
-    </ion-item>    
+    <div *ngIf="searchTrees.length > 0; else carregandoArvores">
+      <ion-item id="item-list" *ngFor="let searchTree of searchTrees | filter:searchTerm; let i = index"
+        (click)="itemView(searchTree.arvore)">
+        <ion-label>
+          {{ searchTree.arvore.name }} ({{ searchTree.distanceToUser }} metros)
+        </ion-label>
+      </ion-item>
+    </div>
+    <ng-template #carregandoArvores>
+      <div class="spinner">
+        <ion-item>
+          <ion-spinner style="margin-top: 10px;" color="tertiary" name="bubbles"></ion-spinner>
+        </ion-item>
+      </div>
+    </ng-template>
   </ion-list>
-  
+
   <ion-spinner id="spinner" slot="fixed" name="crescent"></ion-spinner>
-  
+
   <ion-button id="button-navigate" size='small' shape="round" slot="fixed" hidden="false" (click)="navigate()">
     <ion-icon slot="icon-only" name="navigate"></ion-icon>
   </ion-button>
@@ -47,9 +55,9 @@
         <ion-icon name="flower-outline"></ion-icon>
       </ion-fab-button>
 
-      <ion-fab-button size="large" (click)="showModalRanking()">
+      <!-- <ion-fab-button size="large" (click)="showModalRanking()">
         <ion-icon name="star-outline"></ion-icon>
-      </ion-fab-button>
+      </ion-fab-button> -->
     </ion-fab-list>
   </ion-fab>
 </ion-content>

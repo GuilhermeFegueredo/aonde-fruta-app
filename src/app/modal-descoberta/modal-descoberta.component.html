@@ -16,11 +16,11 @@
 
 <ion-content>
   <form class="form mt-4" (submit)="cadastrarArvore()" [formGroup]="novaDescobertaForm" #descoberta="ngForm">
-    <ion-item class="ion-margin-top form-group" lines="nome">
+    <ion-item class="ion-margin-top form-group" lines="none">
       <ion-input class="form-control" id="name" type="text" placeholder="Nome da espécie" formControlName="nome"
         required></ion-input>
     </ion-item>
-    <ion-item class="ion-margin-top form-group" lines="nome">
+    <ion-item class="ion-margin-top form-group" lines="none">
       <ion-input class="form-control" id="description" placeholder="Alguma observação?" formControlName="description">
       </ion-input>
     </ion-item>

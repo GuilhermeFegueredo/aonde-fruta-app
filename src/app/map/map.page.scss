@@ -31,12 +31,21 @@
     transition: .2s linear;
     transform: translateY(0);
     color: #f59963;
+    overflow-y: scroll;
+
+    .spinner {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 }
+
 
 #searchbar:focus-within ~ #list-search {
     transform: translateY(5%);
     height: 30vh;
-    
+
 }
 
 #spinner {
@@ -46,7 +55,7 @@
     left:50%;
     transform:translate(-50%,-50%);
     width: 13vw;
-    height: 13vh; 
+    height: 13vh;
     display: none;
 }
 
